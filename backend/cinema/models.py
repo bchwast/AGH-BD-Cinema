@@ -1,4 +1,4 @@
-from mongoengine import Document, EmbeddedDocument, fields
+from mongoengine import Document, EmbeddedDocument, fields, ValidationError
 
 
 class Reservation(EmbeddedDocument):
@@ -19,6 +19,9 @@ class Movie(Document):
     description = fields.StringField(max_length=750, required=True)
     terms = fields.EmbeddedDocumentListField(Term)
 
-    # def save(self, *args, **kwargs):
-    #     for term in self.terms:
-    #         if term.reservations.map()
+    def save(self, *args, **kwargs):
+        for term in self.terms:
+            if sum(map(lambda x: x.number_of_places, term.reservations)) > term.max_places:
+                raise ValidationError("Not enough places for term")
+
+        super(Movie, self).save(*args, **kwargs)
