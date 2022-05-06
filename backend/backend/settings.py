@@ -78,14 +78,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'cinema_db',
-        'HOST': '127.0.0.1',
-        'PORT': 27017,
-    }
-}
+import mongoengine
+mongoengine.connect(db='cinema_db', host='127.0.0.1', port=27017)
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'cinema_db',
+#         'HOST': '127.0.0.1',
+#         'PORT': 27017,
+#     }
+# }
 
 
 # Password validation

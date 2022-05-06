@@ -21,5 +21,5 @@ from cinema import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/movies', views.movie_list),
-    path('api/movies/<int:id>', views.movie_detail)
+    path('api/movies/<slug:pk>', views.movie_detail)
 ]

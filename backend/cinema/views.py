@@ -28,4 +28,17 @@ def movie_list(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def movie_detail(request, pk):
-    pass
+    movie = Movie.objects.get(pk=pk)
+    if request.method == 'GET':
+        movie_serializer = MovieSerializer(movie)
+        return JsonResponse(movie_serializer.data)
+    elif request.method == 'PUT':
+        movie_data = JSONParser().parse(request)
+        movie_serializer = MovieSerializer(movie, data=movie_data)
+        if movie_serializer.is_valid():
+            movie_serializer.save()
+            return JsonResponse(movie_serializer.data)
+        return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        movie.delete()
+        return JsonResponse({'message': 'Movie deleted successfully'}, status=status.HTTP_204_NO_CONTENT)

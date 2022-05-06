@@ -1,11 +1,9 @@
-from rest_framework import serializers
+from rest_framework_mongoengine.serializers import DocumentSerializer, EmbeddedDocumentSerializer
 from cinema.models import Movie
 
 
-class MovieSerializer(serializers.ModelSerializer):
+class MovieSerializer(DocumentSerializer):
 
     class Meta:
         model = Movie
-        fields = ('id',
-                  'title',
-                  'date')
+        depth = 2
