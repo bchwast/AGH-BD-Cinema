@@ -10,14 +10,14 @@ class Reservation(EmbeddedDocument):
 
 class Term(EmbeddedDocument):
     date = fields.DateTimeField(required=True)
-    reservations = fields.EmbeddedDocumentListField(Reservation)
+    reservations = fields.EmbeddedDocumentListField(Reservation, required=True)
     max_places = fields.IntField(required=True)
 
 
 class Movie(Document):
     title = fields.StringField(max_length=255, required=True)
     description = fields.StringField(max_length=750, required=True)
-    terms = fields.EmbeddedDocumentListField(Term)
+    terms = fields.EmbeddedDocumentListField(Term, required=True)
 
     def save(self, *args, **kwargs):
         for term in self.terms:

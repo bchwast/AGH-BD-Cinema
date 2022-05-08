@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 import mongoengine
-mongoengine.connect(db='cinema_db', host='127.0.0.1', port=27017)
+mongoengine.connect(db='cinemaDb', host='mongodb+srv://cinemaUser:bazy123@cluster0.fsvyg.mongodb.net/cinemaDb?retryWrites=true&w=majority', username='cinemaUser', password='bazy123')
 
 # DATABASES = {
 #     'default': {
