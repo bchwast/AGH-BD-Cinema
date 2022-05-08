@@ -8,7 +8,12 @@ export const MoviePage = () => {
 
     return (
         <div>
-            {!service.loading && service.data?.title}
+            <h2>
+                {!service.loading && service.data?.title}
+            </h2>
+            <p>
+                {!service.loading && service.data?.description}
+            </p>
         </div>
     )
 }
