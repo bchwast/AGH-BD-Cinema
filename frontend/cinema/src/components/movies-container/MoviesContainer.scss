@@ -1,0 +1,11 @@
+@import '../../index';
+
+.movies-container {
+  background-color: $purple-100;
+  border: {
+    radius: 15px;
+    width: 3px;
+    style: solid;
+    color: $purple-700;
+  }
+}
