@@ -36,16 +36,16 @@ export const customers: Customer[] = [
 
 export const movies: Movie[] = [
     {
-        key: '0',
-        name: 'Dr Dziwago',
+        id: '0',
+        title: 'Dr Dziwago',
         description: 'Bardzo fajny film',
         terms: null,
         pictures: ['https://pl.jugomobile.com/wp-content/uploads/2022/04/Nowy-zwiastun-Doctor-Strange-2-potwierdza-dwie-powracajace-postacie-MCU.jpg',
             'https://sm.ign.com/ign_pl/screenshot/default/doctor-strange-2-poster_1fuk.jpg']
     },
     {
-        key: '1',
-        name: 'Morbius',
+        id: '1',
+        title: 'Morbius',
         description: 'Bardzo słaby film',
         terms: null,
         pictures: ['https://fwcdn.pl/fpo/70/46/817046/7987451.3.jpg',

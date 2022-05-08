@@ -16,7 +16,7 @@ export const MoviesContainer = () => {
 
     return (
         <div className='movies-container'>
-            {movies.map((movie: Movie) => (
+            {!service.loading && service.data.map((movie: Movie) => (
                 <MovieTile movie={movie} />
                 ))}
         </div>
