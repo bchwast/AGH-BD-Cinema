@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Movie = require('../models/Movie');
+const Term = require('../models/Term');
 
 router.get('/', async (req, res) => {
     try {
@@ -56,6 +57,15 @@ router.put('/:id', async (req, res) => {
         });
         res.status(200);
         res.json(updatedMovie);
+    } catch(err) {
+        res.status(400).json({error_message: err});
+    }
+});
+
+router.get('/:id/terms', async (req, res) => {
+    try {
+        const populatedMovie = await Movie.findById(req.params.id).populate('terms').exec();
+        res.status(200).json(populatedMovie.terms);
     } catch(err) {
         res.status(400).json({error_message: err});
     }

@@ -11,7 +11,7 @@ const MovieSchema = mongoose.Schema({
     },
     terms: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Term'
+        ref: 'Terms'
     }]
 });
 
