@@ -1,24 +1,9 @@
 const mongoose = require('mongoose');
 
-const CustomerSchema = mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    }
-});
-
 const ReservationSchema = mongoose.Schema({
     customer: {
-        type: CustomerSchema,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     },
     numberOfPlaces: {
         type: Number,
@@ -49,8 +34,6 @@ TermSchema.pre('save', function(next) {
 });
 
 TermSchema.pre('findOneAndUpdate', function(next) {
-    console.log('hi');
-    console.log(this.getUpdate().reservations.map(elem => elem.numberOfPlaces).reduce((acc, elem) => acc + elem, 0));
     if (this.getUpdate().reservations.map(elem => elem.numberOfPlaces).reduce((acc, elem) => acc + elem, 0) > this.getUpdate().totalPlaces) {
         return next('Not enough available places');
     }

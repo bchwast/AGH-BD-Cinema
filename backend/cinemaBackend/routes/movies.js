@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const loginVerify = require('./verifyToken');
 const Movie = require('../models/Movie');
 const Term = require('../models/Term');
+const User = require('../models/User');
 
 router.get('/', async (req, res) => {
     try {
@@ -12,8 +14,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', loginVerify, async (req, res) => {
     try {
+        const user = await User.findById(req.user._id);
+        if (!user.admin) {
+            return res.status(401).send('Access only for admin');
+        }
         const post = new Movie({
             title: req.body.title,
             description: req.body.description,
@@ -39,8 +45,12 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', loginVerify, async (req, res) => {
     try {
+        const user = await User.findById(req.user._id);
+        if (!user.admin) {
+            return res.status(401).send('Access only for admin');
+        }
         await Movie.findByIdAndDelete(req.params.id);
         res.status(200);
         res.send();
@@ -49,8 +59,12 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', loginVerify, async (req, res) => {
     try {
+        const user = await User.findById(req.user._id);
+        if (!user.admin) {
+            return res.status(401).send('Access only for admin');
+        }
         const updatedMovie = await Movie.findByIdAndUpdate({_id: req.params.id}, req.body, {
             new: true,
             runValidators: true
