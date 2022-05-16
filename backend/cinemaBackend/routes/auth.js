@@ -28,6 +28,7 @@ router.post('/register', async (req, res) => {
     try {
         const savedUser = await user.save();
         res.status(201).json({user: user._id});
+        res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -53,6 +54,7 @@ router.post('/login', async (req, res) => {
         expiresIn: "5h"
     });
     res.header('token', token).send(token);
+    res.header("Access-Control-Allow-Origin", "*");
 });
 
 module.exports = router;

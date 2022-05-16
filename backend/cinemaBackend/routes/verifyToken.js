@@ -9,6 +9,7 @@ function auth(req, res, next) {
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         req.user = verified;
+        res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         return res.status(400).json({error_message: err});
     }

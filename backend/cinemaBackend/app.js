@@ -13,6 +13,15 @@ app.use('/movies', moviesRoute);
 app.use('/terms', termsRoute);
 app.use('/auth', authRoute);
 
+const cors=require('cors');
+const corsOptions ={
+    origin:'*',
+    credentials:true,
+    optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
 mongoose.connect('mongodb://127.0.0.1:27017/cinemaDB', {useNewUrlParser: true}, () => console.log('connected'));
 
 app.listen(8080);

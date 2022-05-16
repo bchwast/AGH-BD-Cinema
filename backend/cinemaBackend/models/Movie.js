@@ -12,6 +12,10 @@ const MovieSchema = mongoose.Schema({
     terms: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Terms'
+    }],
+    pictures: [{
+        type: String,
+        required: false
     }]
 });
 
