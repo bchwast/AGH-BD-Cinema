@@ -5,18 +5,18 @@ import {Place} from "../interfaces/Place";
 
 export const customers: Customer[] = [
     {
-        key: '0',
-        nick: 'mazik',
+        _id: '0',
         firstname: 'Jakub',
         lastname: 'Maziarz',
-        email: 'mazik@mazik.com'
+        email: 'mazik@mazik.com',
+        admin: false
     },
     {
-        key: '1',
-        nick: 'kulman',
+        _id: '1',
         firstname: 'Jakub',
         lastname: 'Kulman',
-        email: 'kulman@kulman.com'
+        email: 'kulman@kulman.com',
+        admin: true
     }
 ]
 

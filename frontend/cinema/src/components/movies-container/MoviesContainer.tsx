@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useGetMoviesService} from "../../services/getMovies";
+import {useGetMovies} from "../../hooks/useGetMovies";
 import MovieTile from "../movie-tile/MovieTile";
 import './MoviesContainer.scss'
 import {movies} from "../../mock-data/mocks";
@@ -8,7 +8,7 @@ import {Movie} from "../../interfaces/Movie";
 export const MoviesContainer = () => {
     const range = 10;
     const [limit, setLimit] = useState(range);
-    const service = useGetMoviesService();
+    const service = useGetMovies();
 
     const expand = () => {
         setLimit(limit + range);

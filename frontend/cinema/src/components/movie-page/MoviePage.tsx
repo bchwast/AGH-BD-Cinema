@@ -1,19 +1,31 @@
 import {Movie} from "../../interfaces/Movie";
 import {useParams} from "react-router-dom";
-import {useGetMovieService} from "../../services/getMovie";
+import {useGetMovie} from "../../hooks/useGetMovie";
+import {useGetTerm} from "../../hooks/useGetTerm";
+import {useGetTerms} from "../../hooks/useGetTerms";
+import {Term} from "../../interfaces/Term";
 
 export const MoviePage = () => {
     const {id} = useParams();
-    const service = useGetMovieService(id);
+    const getMovie = useGetMovie(id);
+    const getTerms = useGetTerms(id);
 
     return (
         <div>
             <h2>
-                {!service.loading && service.data?.title}
+                {!getMovie.loading && getMovie.data?.title}
             </h2>
             <p>
-                {!service.loading && service.data?.description}
+                {!getMovie.loading && getMovie.data?.description}
             </p>
+            <div> {!getTerms.loading && getTerms.data.map((term: Term, i: number) => {
+                    return ( <div key={i}>
+                        <p>Date: {term.date}</p>
+                        <p>Free places: {term.freePlaces}</p>
+                        <p>Total places: {term.totalPlaces}</p>
+                    </div>)
+                })}
+            </div>
         </div>
     )
 }

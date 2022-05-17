@@ -1,7 +1,7 @@
 export interface Customer {
-    key: string;
-    nick: string;
+    _id: string;
     firstname: string;
     lastname: string;
     email: string;
+    admin: boolean;
 }
