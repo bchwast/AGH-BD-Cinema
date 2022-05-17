@@ -24,6 +24,6 @@ const corsOptions ={
 
 app.use(cors(corsOptions))
 
-mongoose.connect('mongodb://127.0.0.1:27017/cinemaDB', {useNewUrlParser: true}, () => console.log('connected'));
+mongoose.connect('mongodb+srv://cinemaUser:bazy123@cluster0.fsvyg.mongodb.net/cinemaDb?retryWrites=true&w=majority', {useNewUrlParser: true}, () => console.log('connected'));
 
 app.listen(8080);

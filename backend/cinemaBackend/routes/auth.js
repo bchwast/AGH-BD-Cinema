@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
 
     try {
         const savedUser = await user.save();
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(201).json({user: user._id});
     } catch(err) {
         res.status(400).json({error_message: err});
@@ -53,8 +53,16 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
         expiresIn: "5h"
     });
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('token', token).send(token);
+
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header('token', token).send(token);
+    res.status(201).json({
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        admin: user.admin,
+        token: token
+    });
 });
 
 module.exports = router;

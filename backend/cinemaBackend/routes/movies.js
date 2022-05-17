@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', loginVerify, async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
         if (!user.admin) {
@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
         // res.header("Access-Control-Allow-Origin", "*");
         res.status(201).json(savedMovie);
     } catch(err) {
+        console.log(err);
         res.status(400).json({error_message: err});
     }
 });
