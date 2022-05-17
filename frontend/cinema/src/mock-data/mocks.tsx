@@ -36,7 +36,7 @@ export const customers: Customer[] = [
 
 export const movies: Movie[] = [
     {
-        id: '0',
+        _id: '0',
         title: 'Dr Dziwago',
         description: 'Bardzo fajny film',
         terms: null,
@@ -44,7 +44,7 @@ export const movies: Movie[] = [
             'https://sm.ign.com/ign_pl/screenshot/default/doctor-strange-2-poster_1fuk.jpg']
     },
     {
-        id: '1',
+        _id: '1',
         title: 'Morbius',
         description: 'Bardzo słaby film',
         terms: null,
