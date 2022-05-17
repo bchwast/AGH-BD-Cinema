@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     try {
         const terms = await Term.find();
         res.status(200).json(terms);
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -28,7 +28,7 @@ router.post('/', loginVerify, async (req, res) => {
         }
         const savedTerm = await term.save();
         res.status(201).json(savedTerm);
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
             return;
         }
         res.status(200).json(term);
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -60,7 +60,7 @@ router.put('/:id', loginVerify, async (req, res) => {
             context: 'query'
         });
         res.status(200)
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.json(updatedTerm);
     } catch(err) {
         res.status(400).json({error_message: err});
@@ -75,26 +75,8 @@ router.delete('/:id', loginVerify, async (req, res) => {
         }
         await Term.findByIdAndDelete(req.params.id);
         res.status(200);
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.send();
-    } catch(err) {
-        res.status(400).json({error_message: err});
-    }
-});
-
-router.put('/:id/addreservation', loginVerify, async (req, res) => {
-    try {
-        const term = await Term.findById(req.params.id);
-        if (req.user._id != term.customer) {
-            return res.status(401).send('No access');
-        }
-        term.reservations.push({
-            customer: req.body.customer,
-            numberOfPlaces: req.body.numberOfPlaces
-        });
-        const updatedTerm = await term.save();
-        res.status(200).json(updatedTerm);
-        res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }

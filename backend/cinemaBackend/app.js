@@ -9,9 +9,11 @@ app.use(bodyParser.json());
 const moviesRoute = require('./routes/movies');
 const termsRoute = require('./routes/terms');
 const authRoute = require('./routes/auth');
+const reservationsRoute = require('./routes/reservations');
 app.use('/movies', moviesRoute);
 app.use('/terms', termsRoute);
 app.use('/auth', authRoute);
+app.use('/reservations', reservationsRoute);
 
 const cors=require('cors');
 const corsOptions ={

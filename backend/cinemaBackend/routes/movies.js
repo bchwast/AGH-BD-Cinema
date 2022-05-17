@@ -8,7 +8,7 @@ const User = require('../models/User');
 router.get('/', async (req, res) => {
     try {
         const movies = await Movie.find();
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(200).json(movies);
     } catch(err) {
         res.status(400).json({error_message: err});
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
             pictures: req.body.pictures
         });
         const savedMovie = await post.save();
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(201).json(savedMovie);
     } catch(err) {
         res.status(400).json({error_message: err});
@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
             res.status(404).json({error_message: 'Not found'});
             return;
         }
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(200).json(movie);
     } catch(err) {
         res.status(400).json({error_message: err});
@@ -56,7 +56,7 @@ router.delete('/:id', loginVerify, async (req, res) => {
             return res.status(401).send('Access only for admin');
         }
         await Movie.findByIdAndDelete(req.params.id);
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(200);
         res.send();
     } catch(err) {
@@ -74,7 +74,7 @@ router.put('/:id', loginVerify, async (req, res) => {
             new: true,
             runValidators: true
         });
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(200);
         res.json(updatedMovie);
     } catch(err) {
@@ -85,7 +85,7 @@ router.put('/:id', loginVerify, async (req, res) => {
 router.get('/:id/terms', async (req, res) => {
     try {
         const populatedMovie = await Movie.findById(req.params.id).populate('terms').exec();
-        res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Origin", "*");
         res.status(200).json(populatedMovie.terms);
     } catch(err) {
         res.status(400).json({error_message: err});
