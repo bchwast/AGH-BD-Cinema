@@ -4,13 +4,16 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
+import {AuthProvider} from "./context/AuthProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
     <div className='page-background'>
-        <App />
+        <AuthProvider>
+            <App />
+        </AuthProvider>
     </div>
 );
 

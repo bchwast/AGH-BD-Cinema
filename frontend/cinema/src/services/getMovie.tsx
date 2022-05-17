@@ -9,7 +9,7 @@ export const useGetMovieService = (id?: string) => {
     useEffect(() => {
         const fetchMovie = async () => {
             try {
-                const {data: response} = await axios.get(`http://localhost:8000/api/movies/${id}`);
+                const {data: response} = await axios.get(`http://localhost:8080/movies/${id}`);
                 setData(response);
             } catch (error) {
                 console.log(error);
