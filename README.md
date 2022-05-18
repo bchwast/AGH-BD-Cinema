@@ -7,5 +7,5 @@ Temat: Aplikacja do obsługi kina
 
 Technologie:
 -React
--Django
+-ExpressJS
 -MongoDB
