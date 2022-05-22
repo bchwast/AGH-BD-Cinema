@@ -22,7 +22,11 @@ const UserSchema = mongoose.Schema({
     admin: {
         type: Boolean,
         default: true
-    }
+    },
+    reservations: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }]
 });
 
 module.exports = mongoose.model('Users', UserSchema);

@@ -15,12 +15,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', loginVerify, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const user = await User.findById(req.user._id);
-        if (!user.admin) {
-            return res.status(401).send('Access only for admin');
-        }
+        // const user = await User.findById(req.user._id);
+        // if (!user.admin) {
+        //     return res.status(401).send('Access only for admin');
+        // }
         const post = new Movie({
             title: req.body.title,
             description: req.body.description,
@@ -88,6 +88,24 @@ router.get('/:id/terms', async (req, res) => {
         const populatedMovie = await Movie.findById(req.params.id).populate('terms').exec();
         // res.header("Access-Control-Allow-Origin", "*");
         res.status(200).json(populatedMovie.terms);
+    } catch(err) {
+        res.status(400).json({error_message: err});
+    }
+});
+
+router.post('/:id/addterm', async (req, res) => {
+    try {
+        const term = new Term({
+            date: req.body.date,
+            totalPlaces: req.body.totalPlaces,
+            freePlaces: req.body.totalPlaces
+        });
+        const movie = await Movie.findById(req.params.id);
+        movie.terms.push(term._id);
+        const savedTerm = await term.save();
+        console.log(movie);
+        await movie.save();
+        res.status(201).json(savedTerm);
     } catch(err) {
         res.status(400).json({error_message: err});
     }
