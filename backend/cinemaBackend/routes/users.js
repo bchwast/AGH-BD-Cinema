@@ -4,18 +4,24 @@ const router = express.Router();
 const User = require('../models/User');
 const Term = require('../models/Term');
 
-router.get('/:id/reservations', async (req, res) => {
+router.get('/:id/reservations', loginVerify, async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
+        if (user._id != req.params.id && !user.admin) {
+            return res.status(401).send('Access denied');
+        }
         res.status(200).json(user.reservations);
     } catch(err) {
         res.status(400).json({error_message: err});
     }
 });
 
-router.post('/:id/reservations', async (req, res) => {
+router.post('/:id/reservations', loginVerify, async (req, res) => {
     try {
         const user  = await User.findById(req.params.id);
+        if (user._id != req.params.id && !user.admin) {
+            return res.status(401).send('Access denied');
+        }
         const term = await Term.findById(req.body.term);
         if (term.freePlaces < req.body.numberOfPlaces) {
             return res.status(400).send('Not enough places');
@@ -34,9 +40,12 @@ router.post('/:id/reservations', async (req, res) => {
     }
 });
 
-router.put('/:user_id/reservations/:reservation_id', async (req, res) => {
+router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, res) => {
     try {
         const user = await User.findById(req.params.user_id);
+        if (user._id != req.params.id && !user.admin) {
+            return res.status(401).send('Access denied');
+        }
         const term = await Term.findById(req.body.term);
         const reservation = user.reservations.id(req.params.reservation_id);
         if (term.freePlaces < -1 * reservation.numberOfPlaces + req.body.numberOfPlaces) {
@@ -52,9 +61,12 @@ router.put('/:user_id/reservations/:reservation_id', async (req, res) => {
     }
 });
 
-router.delete('/:user_id/reservations/:reservation_id', async (req, res) => {
+router.delete('/:user_id/reservations/:reservation_id', loginVerify, async (req, res) => {
     try {
         const user = await User.findById(req.params.user_id);
+        if (user._id != req.params.id && !user.admin) {
+            return res.status(401).send('Access denied');
+        }
         const reservation = user.reservations.id(req.params.reservation_id);
         const term = Term.findById(reservation.term);
         term.freePlaces += reservation.numberOfPlaces;
@@ -62,6 +74,31 @@ router.delete('/:user_id/reservations/:reservation_id', async (req, res) => {
         user.save();
         term.save();
         res.status(200).send('Reservation deleted');
+    } catch(err) {
+        res.status(400).json({error_message: err});
+    }
+});
+
+router.get('/:id', loginVerify, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (user._id != req.user._id && !user.admin) {
+            return res.status(401).send('Access denied');
+        }
+        res.status(200).json(user);
+    } catch(err) {
+        res.status(400).json({error_message: err});
+    }
+});
+
+router.get('/', loginVerify, async (req, res) => {
+    try {
+        const users = await User.find();
+        const verifiedUser = users.filter(user => user._id == req.user._id)[0];
+        if (!verifiedUser.admin) {
+            return res.status(401).send('Access denied');
+        }
+        res.status(200).json(users);
     } catch(err) {
         res.status(400).json({error_message: err});
     }

@@ -15,12 +15,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', loginVerify, async (req, res) => {
     try {
-        // const user = await User.findById(req.user._id);
-        // if (!user.admin) {
-        //     return res.status(401).send('Access only for admin');
-        // }
+        const user = await User.findById(req.user._id);
+        if (!user.admin) {
+            return res.status(401).send('Access only for admin');
+        }
         const post = new Movie({
             title: req.body.title,
             description: req.body.description,
@@ -93,8 +93,12 @@ router.get('/:id/terms', async (req, res) => {
     }
 });
 
-router.post('/:id/addterm', async (req, res) => {
+router.post('/:id/addterm', loginVerify, async (req, res) => {
     try {
+        const user = await User.findById(req.user._id);
+        if (!user.admin) {
+            return res.status(401).send('Access only for admin');
+        }
         const term = new Term({
             date: req.body.date,
             totalPlaces: req.body.totalPlaces,
