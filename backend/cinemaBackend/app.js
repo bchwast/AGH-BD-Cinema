@@ -9,11 +9,11 @@ app.use(bodyParser.json());
 const moviesRoute = require('./routes/movies');
 const termsRoute = require('./routes/terms');
 const authRoute = require('./routes/auth');
-const reservationsRoute = require('./routes/reservations');
+const usersRoute = require('./routes/users');
 app.use('/movies', moviesRoute);
 app.use('/terms', termsRoute);
 app.use('/auth', authRoute);
-app.use('/reservations', reservationsRoute);
+app.use('/users', usersRoute);
 
 const cors=require('cors');
 const corsOptions ={
@@ -24,13 +24,13 @@ const corsOptions ={
 
 app.use(cors(corsOptions))
 
-mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    dbName: 'cinemaDB'
-}, () => console.log('connected'));
-// mongoose.connect('mongodb://localhost:27017/', {
-//     dbName: 'cinemaDB',
-//     useNewUrlParser: true
+// mongoose.connect(process.env.DB_URL, {
+//     useNewUrlParser: true,
+//     dbName: 'cinemaDB'
 // }, () => console.log('connected'));
+mongoose.connect('mongodb://localhost:27017/', {
+    dbName: 'cinemaDB',
+    useNewUrlParser: true
+}, () => console.log('connected'));
 
 app.listen(8080);

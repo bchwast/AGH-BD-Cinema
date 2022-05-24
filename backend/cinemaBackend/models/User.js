@@ -1,5 +1,22 @@
 const mongoose = require('mongoose');
 
+const ReservationSchema = mongoose.Schema({
+    customer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true
+    },
+    term: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Terms',
+        required: true
+    },
+    numberOfPlaces: {
+        type: Number,
+        required: true
+    }
+});
+
 const UserSchema = mongoose.Schema({
     firstname: {
         type: String,
@@ -23,10 +40,10 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
-    reservations: [{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    }]
+    reservations: {
+        type: [ReservationSchema],
+        default: []
+    }
 });
 
 module.exports = mongoose.model('Users', UserSchema);
