@@ -11,6 +11,10 @@ import RequireAuth, {RequireLogin} from "./components/require-auth/RequireLogin"
 import RequireAdmin from "./components/require-auth/RequireAdmin";
 import ErrorPage from "./components/error-page/ErrorPage";
 import RequireLogout from "./components/require-auth/RequireLogout";
+import UserPage from "./components/user-page/UserPage";
+import {MovieAdd} from "./components/movie-add/MovieAdd";
+import MovieEdit from "./components/movie-edit/MovieEdit";
+import {TermAdd} from "./components/term-add/TermAdd";
 
 function App() {
   return (
@@ -20,6 +24,13 @@ function App() {
             <Routes>
                 <Route element={<RequireAdmin />}>
                     <Route path="/admin" element={<AdminPage />} />
+                    <Route path="movie/add" element={<MovieAdd />} />
+                    <Route path="/movie/:id/edit" element={<MovieEdit />} />
+                    <Route path="/movie/:id/addterm" element={<TermAdd />} />
+                </Route>
+
+                <Route element={<RequireLogin />}>
+                    <Route path="/user" element={<UserPage />} />
                 </Route>
 
                 <Route element={<RequireLogout />}>
