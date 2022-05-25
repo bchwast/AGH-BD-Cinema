@@ -38,7 +38,7 @@ const UserSchema = mongoose.Schema({
     },
     admin: {
         type: Boolean,
-        default: true
+        default: false
     },
     reservations: {
         type: [ReservationSchema],

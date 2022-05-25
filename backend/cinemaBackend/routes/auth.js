@@ -51,11 +51,11 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
-        expiresIn: "5h"
+        expiresIn: '5h'
     });
 
     // res.header("Access-Control-Allow-Origin", "*");
-    // res.header('token', token).send(token);
+    res.header('token', token);
     res.status(201).json({
         _id: user._id,
         firstname: user.firstname,
@@ -63,6 +63,18 @@ router.post('/login', async (req, res) => {
         admin: user.admin,
         token: token
     });
+});
+
+router.post('/logout', async (req, res) => {
+    try {
+        const token = jwt.sign('', process.env.TOKEN_SECRET, {
+            expiresIn: '1s'
+        });
+        res.header('token', token);
+        res.status(200).send('Logged out');
+    } catch(err) {
+        res.status(400).json({error_message: err});
+    }
 });
 
 module.exports = router;
