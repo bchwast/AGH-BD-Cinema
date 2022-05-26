@@ -6,13 +6,13 @@ interface Props {
     token: string;
 }
 
-export const RequireLogin = (props: PropsWithChildren<Props>) => {
+export const RequireLogin = () => {
     // @ts-ignore
     const {auth} = useAuth();
     const location = useLocation();
 
     return (
-        auth?.token?.equals(props.token)
+        auth?.token
             ? <Outlet />
             : <Navigate to="/login" state={{ from: location}} replace />
     )

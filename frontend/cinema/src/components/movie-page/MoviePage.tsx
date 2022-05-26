@@ -1,9 +1,8 @@
 import {Movie} from "../../interfaces/Movie";
 import {useParams} from "react-router-dom";
-import {useGetMovie} from "../../hooks/useGetMovie";
-import {useGetTerm} from "../../hooks/useGetTerm";
-import {useGetTerms} from "../../hooks/useGetTerms";
 import {Term} from "../../interfaces/Term";
+import {useGetMovie} from "../../hooks/useMovies";
+import {useGetTerms} from "../../hooks/useTerms";
 
 export const MoviePage = () => {
     const {id} = useParams();

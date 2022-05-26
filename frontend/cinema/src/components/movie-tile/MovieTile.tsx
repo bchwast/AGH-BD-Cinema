@@ -3,15 +3,12 @@ import './MovieTIle.scss'
 import {Link} from "react-router-dom";
 import {Card} from "react-bootstrap";
 
+
 type Props = {
     movie: Movie;
 }
 
 export const MovieTile = ({ movie } : Props) => {
-    const goToMovie = () => {
-
-    }
-
     return (
         <Link to={`/movie/${movie._id}`} className="col-md-3">
             <Card>

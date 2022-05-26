@@ -4,6 +4,6 @@ export interface Movie {
     _id: string;
     title: string;
     description: string;
-    terms: string[] | null;
+    terms: string[];
     pictures: string[];
 }
