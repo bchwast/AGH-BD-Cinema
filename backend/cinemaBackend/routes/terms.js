@@ -59,9 +59,8 @@ router.put('/:id', loginVerify, async (req, res) => {
             runValidators: true,
             context: 'query'
         });
-        res.status(200)
+        res.status(200).send('Updated succesfully')
         // res.header("Access-Control-Allow-Origin", "*");
-        res.json(updatedTerm);
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -74,9 +73,8 @@ router.delete('/:id', loginVerify, async (req, res) => {
             return res.status(401).send('Access only for admin');
         }
         await Term.findByIdAndDelete(req.params.id);
-        res.status(200);
+        res.status(200).send('Deleted succesfully');
         // res.header("Access-Control-Allow-Origin", "*");
-        res.send();
     } catch(err) {
         res.status(400).json({error_message: err});
     }

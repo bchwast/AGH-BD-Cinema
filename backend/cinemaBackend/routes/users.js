@@ -54,7 +54,7 @@ router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, re
             return res.status(401).send('Access denied');
         }
         const term = await Term.findById(req.body.term);
-        const reservation = user.reservations.id(req.params.reservation_id);
+        const reservation = user.reservations.id(req.params.reservation_id).exec();
         if (term.freePlaces < -1 * reservation.numberOfPlaces + req.body.numberOfPlaces) {
             return res.status(400).send('Not enough places');
         }
@@ -71,11 +71,12 @@ router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, re
 router.delete('/:user_id/reservations/:reservation_id', loginVerify, async (req, res) => {
     try {
         const user = await User.findById(req.params.user_id);
-        if (user._id != req.params.id && !user.admin) {
+        if (user._id != req.user._id && !user.admin) {
             return res.status(401).send('Access denied');
         }
         const reservation = user.reservations.id(req.params.reservation_id);
-        const term = Term.findById(reservation.term);
+        const term = await Term.findById(reservation.term);
+        console.log(reservation)
         term.freePlaces += reservation.numberOfPlaces;
         user.reservations.id(req.params.reservation_id).remove();
         user.save();

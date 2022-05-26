@@ -107,10 +107,9 @@ router.post('/:id/addterm', loginVerify, async (req, res) => {
         });
         const movie = await Movie.findById(req.params.id);
         movie.terms.push(term._id);
-        const savedTerm = await term.save();
-        console.log(movie);
-        await movie.save();
-        res.status(201).json(savedTerm);
+        term.save();
+        movie.save();
+        res.status(201).send('Saved successfully');
     } catch(err) {
         res.status(400).json({error_message: err});
     }
