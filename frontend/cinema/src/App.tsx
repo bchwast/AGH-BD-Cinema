@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBar from "./components/nav-bar/NavBar";
-import MoviesContainer from "./components/movies-container/MoviesContainer";
+import MoviesContainer from "./components/movie/movies-container/MoviesContainer";
 import Home from "./components/home/Home";
-import {MoviePage} from "./components/movie-page/MoviePage";
+import {MoviePage} from "./components/movie/movie-page/MoviePage";
 import LoginPage from "./components/login-page/LoginPage";
 import SignupPage from "./components/signup-page/SignupPage";
 import AdminPage from "./components/admin-page/AdminPage";
@@ -12,9 +12,10 @@ import RequireAdmin from "./components/require-auth/RequireAdmin";
 import ErrorPage from "./components/error-page/ErrorPage";
 import RequireLogout from "./components/require-auth/RequireLogout";
 import UserPage from "./components/user-page/UserPage";
-import {MovieAdd} from "./components/movie-add/MovieAdd";
-import MovieEdit from "./components/movie-edit/MovieEdit";
-import {TermAdd} from "./components/term-add/TermAdd";
+import {MovieAdd} from "./components/movie/movie-add/MovieAdd";
+import MovieEdit from "./components/movie/movie-edit/MovieEdit";
+import {TermAdd} from "./components/term/term-add/TermAdd";
+import {TermEdit} from "./components/term/term-edit/TermEdit";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                     <Route path="movie/add" element={<MovieAdd />} />
                     <Route path="/movie/:id/edit" element={<MovieEdit />} />
                     <Route path="/movie/:id/addterm" element={<TermAdd />} />
+                    <Route path="/term/:id/edit" element={<TermEdit />} />
                 </Route>
 
                 <Route element={<RequireLogin />}>

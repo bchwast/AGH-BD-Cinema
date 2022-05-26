@@ -46,7 +46,9 @@ export const LoginPage = () => {
             const firstname = response?.data?.firstname;
             const lastname = response?.data?.lastname;
             const id = response?.data?._id;
-            setAuth({id, firstname, lastname, mail, token, admin});
+            const reservations = response?.data?.reservations;
+            console.log(response);
+            setAuth({id, firstname, lastname, mail, token, admin, reservations});
             navigate(from, {replace: true});
         } catch (error) {
             if (axios.isAxiosError(error)) {

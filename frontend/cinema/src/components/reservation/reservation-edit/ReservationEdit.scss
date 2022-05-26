@@ -1,0 +1,11 @@
+@import '../../../index';
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.hide {
+  display: none;
+}
+

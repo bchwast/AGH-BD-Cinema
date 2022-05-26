@@ -1,7 +1,10 @@
-import {Customer} from "./Customer";
-import {Place} from "./Place";
-
 export interface Reservation {
-    places: Place[];
-    customer: Customer;
+    _id: string;
+    customer: string;
+    movie: {
+        title: string;
+        movieRef: string
+    };
+    term: string;
+    numberOfPlaces: number
 }
