@@ -1,7 +1,6 @@
 import {Movie} from "../interfaces/Movie";
 import {Term} from "../interfaces/Term";
 import {Customer} from "../interfaces/Customer";
-import {Place} from "../interfaces/Place";
 
 export const customers: Customer[] = [
     {

@@ -1,20 +1,20 @@
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import {useState} from "react";
 import axios, {AxiosError} from "axios";
 
 type Props = {
-    movieID: string;
+    termID: string;
+    update: any;
 }
 
-export const MovieDelete = ({movieID}: Props) => {
+export const TermDelete = ({termID, update}: Props) => {
     // @ts-ignore
     const {auth} = useAuth();
-
     const [errMsg, setErrMsg] = useState('');
 
-    const deleteMovie = async () => {
+    const deleteTerm = async () => {
         try {
-            const response = await axios.delete(`http://localhost:8080/movies/${movieID}`,
+            const response = await axios.delete(`http://localhost:8080/terms/${termID}`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -23,6 +23,7 @@ export const MovieDelete = ({movieID}: Props) => {
                     // @ts-ignore
                     user: {_id: auth.id }
                 })
+            update(false);
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error)) {
@@ -34,22 +35,17 @@ export const MovieDelete = ({movieID}: Props) => {
                     setErrMsg(err.response.data);
                 }
             } else {
-                setErrMsg('Movie delete error');
+                setErrMsg('Term delete error');
             }
-            // @ts-ignore
-            errRef.current.focus();
         }
     }
 
     return (
         <>
-            <button onClick={deleteMovie}>Delete</button>
+            <button onClick={deleteTerm}>Delete</button>
             <p>
                 {errMsg ? errMsg : null}
             </p>
         </>
     )
 }
-
-
-export default MovieDelete;

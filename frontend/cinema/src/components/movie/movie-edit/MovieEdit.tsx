@@ -1,14 +1,21 @@
+import useAuth from "../../../hooks/useAuth";
+import React, {FormEvent, useEffect, useRef, useState} from "react";
+import axios, {AxiosError} from "axios";
 import {Button, Card, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
-import React, {FormEvent, useEffect, useRef, useState} from "react";
-import axios, {AxiosError} from "axios";
-import useAuth from "../../hooks/useAuth";
-import './MovieAdd.scss';
+import "./MovieEdit.scss";
+import {useParams} from "react-router-dom";
+import {useGetMovie} from "../../../hooks/useMovies";
 
 const stringRegex = /^[A-Za-z ,.'"-]+$/i;
 
-export const MovieAdd = () => {
+
+export const MovieEdit = () => {
+    const {id} = useParams();
+    const getMovie = useGetMovie(id);
+    const [loaded, setLoaded] = useState(false);
+
     // @ts-ignore
     const {auth} = useAuth();
 
@@ -54,6 +61,17 @@ export const MovieAdd = () => {
     }
 
     useEffect(() => {
+        if (!getMovie.loading && !loaded) {
+            if (getMovie.data) {
+                setLoaded(true);
+            }
+            setTitle(getMovie.data ? getMovie.data!.title : '');
+            setDescription(getMovie.data ? getMovie.data!.description : '');
+            setPictures(getMovie.data ? getMovie.data!.pictures : []);
+        }
+    }, [getMovie.loading, loaded, getMovie.data])
+
+    useEffect(() => {
         // @ts-ignore
         movieRef.current.focus();
     }, []);
@@ -77,15 +95,6 @@ export const MovieAdd = () => {
         setErrMsg('');
     }, [title, description, pictures]);
 
-    useEffect(() => {
-        if (success) {
-            setTitle('');
-            setDescription('');
-            setPictures([]);
-            setSuccess(false);
-        }
-    }, [success])
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const v1 = stringRegex.test(title);
@@ -96,11 +105,10 @@ export const MovieAdd = () => {
         }
         try {
             clearEmptyPictures();
-            const response = await axios.post('http://localhost:8080/movies',
+            const response = await axios.put(`http://localhost:8080/movies/${id}`,
                 JSON.stringify({
                     title: title,
                     description: description,
-                    terms: [],
                     pictures: pictures
                 }),
                 {
@@ -123,7 +131,7 @@ export const MovieAdd = () => {
                     setErrMsg(err.response.data);
                 }
             } else {
-                setErrMsg('Movie add error');
+                setErrMsg('Movie edit error');
             }
             // @ts-ignore
             errRef.current.focus();
@@ -212,11 +220,11 @@ export const MovieAdd = () => {
 
 
             <Button variant="primary" type="submit" disabled={!validTitle || !validDescription || !validPictures}>
-                Add movie
+                Update movie
             </Button>
         </Form>
     )
 }
 
 
-export default MovieAdd;
+export default MovieEdit;

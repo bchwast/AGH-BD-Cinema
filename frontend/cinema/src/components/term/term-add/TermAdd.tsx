@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
-import {useGetMovie} from "../../hooks/useMovies";
+import {useGetMovie} from "../../../hooks/useMovies";
 import React, {FormEvent, useEffect, useRef, useState} from "react";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import {Button, Card, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
