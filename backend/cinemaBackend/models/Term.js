@@ -11,6 +11,11 @@ const TermSchema = mongoose.Schema({
     },
     freePlaces: {
         type: Number
+    },
+    movie: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Movies',
+        required: true
     }
 });
 

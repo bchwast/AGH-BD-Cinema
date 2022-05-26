@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 
 const ReservationSchema = mongoose.Schema({
+    movie: {
+        title: {
+            type: String,
+            required: true
+        },
+        movieRef: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Movies',
+            required: true
+        }
+    },
     customer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',

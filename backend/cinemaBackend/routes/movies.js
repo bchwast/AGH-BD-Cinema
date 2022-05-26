@@ -100,6 +100,7 @@ router.post('/:id/addterm', loginVerify, async (req, res) => {
             return res.status(401).send('Access only for admin');
         }
         const term = new Term({
+            movie: req.params.id,
             date: req.body.date,
             totalPlaces: req.body.totalPlaces,
             freePlaces: req.body.totalPlaces

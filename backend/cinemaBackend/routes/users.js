@@ -3,6 +3,7 @@ const loginVerify = require('./verifyToken');
 const router = express.Router();
 const User = require('../models/User');
 const Term = require('../models/Term');
+const Movie = require('../models/Movie')
 
 router.get('/:id/reservations', loginVerify, async (req, res) => {
     try {
@@ -27,7 +28,13 @@ router.post('/:id/reservations', loginVerify, async (req, res) => {
             return res.status(400).send('Not enough places');
         }
         term.freePlaces -= req.body.numberOfPlaces;
+        const movieFound = await Movie.findById(term.movie);
+        console.log(movieFound);
         user.reservations.push({
+            movie: {
+                title: movieFound.title,
+                movieRef: movieFound._id
+            },
             customer: req.params.id,
             term: req.body.term,
             numberOfPlaces: req.body.numberOfPlaces
