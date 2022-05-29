@@ -1,9 +1,10 @@
 const express = require('express');
 const loginVerify = require('./verifyToken');
 const router = express.Router();
+const mongoose = require('mongoose')
 const User = require('../models/User');
 const Term = require('../models/Term');
-const Movie = require('../models/Movie')
+const Movie = require('../models/Movie');
 
 router.get('/:id/reservations', loginVerify, async (req, res) => {
     try {
@@ -18,6 +19,8 @@ router.get('/:id/reservations', loginVerify, async (req, res) => {
 });
 
 router.post('/:id/reservations', loginVerify, async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
         const user  = await User.findById(req.params.id);
         if (user._id != req.params.id && !user.admin) {
@@ -29,7 +32,6 @@ router.post('/:id/reservations', loginVerify, async (req, res) => {
         }
         term.freePlaces -= req.body.numberOfPlaces;
         const movieFound = await Movie.findById(term.movie);
-        console.log(movieFound);
         user.reservations.push({
             movie: {
                 title: movieFound.title,
@@ -41,13 +43,19 @@ router.post('/:id/reservations', loginVerify, async (req, res) => {
         });
         user.save();
         term.save();
+        await session.commitTransaction();
+        session.endSession();
         res.status(201).send('Created reservation');
     } catch(err) {
+        session.abortTransaction();
+        session.endSession();
         res.status(400).json({error_message: err});
     }
 });
 
 router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
         const user = await User.findById(req.params.user_id);
         if (user._id != req.params.id && !user.admin) {
@@ -64,11 +72,15 @@ router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, re
         term.save();
         res.status(200).send('Updated reservation');
     } catch(err) {
+        session.abortTransaction();
+        session.endSession();
         res.status(400).json({error_message: err});
     }
 });
 
 router.delete('/:user_id/reservations/:reservation_id', loginVerify, async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
         const user = await User.findById(req.params.user_id);
         if (user._id != req.user._id && !user.admin) {
@@ -83,6 +95,8 @@ router.delete('/:user_id/reservations/:reservation_id', loginVerify, async (req,
         term.save();
         res.status(200).send('Reservation deleted');
     } catch(err) {
+        session.abortTransaction();
+        session.endSession();
         res.status(400).json({error_message: err});
     }
 });
