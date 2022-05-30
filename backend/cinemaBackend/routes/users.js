@@ -58,7 +58,7 @@ router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, re
     session.startTransaction();
     try {
         const user = await User.findById(req.params.user_id);
-        if (user._id != req.params.id && !user.admin) {
+        if (user._id != req.params.user_id && !user.admin) {
             return res.status(401).send('Access denied');
         }
         const term = await Term.findById(req.body.term);
