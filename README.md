@@ -151,3 +151,119 @@ Baza danych zawiera 3 kolekcje:
   - user-page - widok strony użytkownika, wyświetla jego rolę, imię i nazwisko oraz jego rezerwacje
  
 ## Backend
+### Modele
+
+- Movie.js
+
+      const mongoose = require('mongoose');
+
+        const MovieSchema = mongoose.Schema({
+            title: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                required: true
+            },
+            terms: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Terms'
+            }],
+            pictures: [{
+                type: String,
+                required: false
+            }]
+        });
+
+        module.exports = mongoose.model('Movies', MovieSchema);
+
+
+- Term.js
+
+      const mongoose = require('mongoose');
+
+      const TermSchema = mongoose.Schema({
+          date: {
+              type: Date,
+              required: true
+          },
+          totalPlaces: {
+              type: Number,
+              required: true
+          },
+          freePlaces: {
+              type: Number
+          },
+          movie: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Movies',
+              required: true
+          }
+      });
+
+      module.exports = mongoose.model('Terms', TermSchema);
+      
+- User.js
+
+      const mongoose = require('mongoose');
+
+      const ReservationSchema = mongoose.Schema({
+          movie: {
+              title: {
+                  type: String,
+                  required: true
+              },
+              movieRef: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Movies',
+                  required: true
+              }
+          },
+          customer: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Users',
+              required: true
+          },
+          term: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Terms',
+              required: true
+          },
+          numberOfPlaces: {
+              type: Number,
+              required: true
+          }
+      });
+
+      const UserSchema = mongoose.Schema({
+          firstname: {
+              type: String,
+              required: true
+          },
+          lastname: {
+              type: String,
+              required: true
+          },
+          email: {
+              type: String,
+              required: true
+          },
+          password: {
+              type: String,
+              required: true,
+              min: 8,
+              max: 1024
+          },
+          admin: {
+              type: Boolean,
+              default: false
+          },
+          reservations: {
+              type: [ReservationSchema],
+              default: []
+          }
+      });
+
+      module.exports = mongoose.model('Users', UserSchema);
+
