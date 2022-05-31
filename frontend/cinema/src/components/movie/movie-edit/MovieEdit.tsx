@@ -6,14 +6,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
 import "./MovieEdit.scss";
 import {useParams} from "react-router-dom";
-import {useGetMovie} from "../../../hooks/useMovies";
 
 const stringRegex = /^[A-Za-z ,.'"-]+$/i;
 
 
 export const MovieEdit = () => {
     const {id} = useParams();
-    const getMovie = useGetMovie(id);
     const [loaded, setLoaded] = useState(false);
 
     // @ts-ignore
@@ -61,15 +59,10 @@ export const MovieEdit = () => {
     }
 
     useEffect(() => {
-        if (!getMovie.loading && !loaded) {
-            if (getMovie.data) {
-                setLoaded(true);
-            }
-            setTitle(getMovie.data ? getMovie.data!.title : '');
-            setDescription(getMovie.data ? getMovie.data!.description : '');
-            setPictures(getMovie.data ? getMovie.data!.pictures : []);
+        if (!loaded) {
+            getMovie();
         }
-    }, [getMovie.loading, loaded, getMovie.data])
+    }, [loaded])
 
     useEffect(() => {
         // @ts-ignore
@@ -94,6 +87,18 @@ export const MovieEdit = () => {
     useEffect(() => {
         setErrMsg('');
     }, [title, description, pictures]);
+
+    const getMovie = async () => {
+        try {
+            const {data: response} = await axios.get(`http://localhost:8080/movies/${id}`);
+            setTitle(response.title);
+            setDescription(response.description);
+            setPictures(response.pictures);
+            setLoaded(true);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();

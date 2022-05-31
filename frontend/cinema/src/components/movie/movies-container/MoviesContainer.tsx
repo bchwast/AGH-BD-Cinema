@@ -1,12 +1,9 @@
 import {useEffect, useState} from "react";
-import {useGetMovies} from "../../../hooks/useMovies";
 import MovieTile from "../movie-tile/MovieTile";
 import './MoviesContainer.scss'
-import {movies} from "../../../mock-data/mocks";
 import {Movie} from "../../../interfaces/Movie";
 import useAuth from "../../../hooks/useAuth";
 import {Link} from "react-router-dom";
-import {MovieDelete} from "../movie-delete/MovieDelete";
 import axios from "axios";
 
 export const MoviesContainer = () => {

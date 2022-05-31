@@ -1,5 +1,4 @@
 import {useParams} from "react-router-dom";
-import {useGetMovie} from "../../../hooks/useMovies";
 import React, {FormEvent, useEffect, useRef, useState} from "react";
 import useAuth from "../../../hooks/useAuth";
 import {Button, Card, Form} from "react-bootstrap";
