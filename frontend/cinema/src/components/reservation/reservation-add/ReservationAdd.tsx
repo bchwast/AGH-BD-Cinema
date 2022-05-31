@@ -14,7 +14,7 @@ type Props = {
 
 export const ReservationAdd = ({term, update}: Props) => {
     // @ts-ignore
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
 
     const placesRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLDivElement>(null);
@@ -73,6 +73,9 @@ export const ReservationAdd = ({term, update}: Props) => {
                 } else if (err.response?.status === 400) {
                     // @ts-ignore
                     setErrMsg(err.response.data);
+                } else if (err.response?.status === 418) {
+                    console.log('Token has expired');
+                    setAuth({});
                 }
             } else {
                 setErrMsg('Add reservation error');

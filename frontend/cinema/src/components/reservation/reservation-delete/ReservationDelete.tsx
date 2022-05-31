@@ -10,8 +10,7 @@ type Props = {
 
 export const ReservationDelete = ({reservation, update}: Props) => {
     // @ts-ignore
-    const {auth} = useAuth();
-    const [errMsg, setErrMsg] = useState('');
+    const {auth, setAuth} = useAuth();
 
     const deleteReservation = async () => {
         try {
@@ -30,13 +29,15 @@ export const ReservationDelete = ({reservation, update}: Props) => {
             if (axios.isAxiosError(error)) {
                 const err = error as AxiosError;
                 if (!err?.response) {
-                    setErrMsg('No server response');
+                    console.log('No server response');
                 } else if (err.response?.status === 400) {
-                    // @ts-ignore
-                    setErrMsg(err.response.data);
+                    console.log(err.response.data);
+                } else if (err.response?.status === 418) {
+                    console.log('Token has expired');
+                    setAuth({});
                 }
             } else {
-                setErrMsg('Reservation delete error');
+                console.log('Reservation delete error');
             }
         }
     }

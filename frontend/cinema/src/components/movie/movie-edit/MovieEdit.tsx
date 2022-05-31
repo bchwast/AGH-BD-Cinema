@@ -15,7 +15,7 @@ export const MovieEdit = () => {
     const [loaded, setLoaded] = useState(false);
 
     // @ts-ignore
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
 
     const movieRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLDivElement>(null);
@@ -134,6 +134,9 @@ export const MovieEdit = () => {
                 } else if (err.response?.status === 400) {
                     // @ts-ignore
                     setErrMsg(err.response.data);
+                } else if (err.response?.status === 418) {
+                    setErrMsg('Token has expired');
+                    setAuth({});
                 }
             } else {
                 setErrMsg('Movie edit error');

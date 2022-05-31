@@ -13,7 +13,7 @@ export const TermAdd = () => {
     const {id} = useParams();
 
     // @ts-ignore
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
 
     const termRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLDivElement>(null);
@@ -90,6 +90,9 @@ export const TermAdd = () => {
                 } else if (err.response?.status === 400) {
                     // @ts-ignore
                     setErrMsg(err.response.data);
+                } else if (err.response?.status === 418) {
+                    console.log('Token has expired');
+                    setAuth({});
                 }
             } else {
                 setErrMsg('Add term error');

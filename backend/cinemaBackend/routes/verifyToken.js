@@ -11,7 +11,7 @@ function auth(req, res, next) {
         req.user = verified;
         res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
-        return res.status(400).json({error_message: err});
+        return res.status(418).json({error_message: err});
     }
     next();
 }
