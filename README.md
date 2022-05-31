@@ -128,4 +128,26 @@ Baza danych zawiera 3 kolekcje:
     }
         
 ## Frontend
+  - admin-page - widok dla administratora wyświetlający jego rolę, imię i nazwisko, jego rezerwacje oraz użytkowników wraz z ich rezerwacjami oraz możliwością edycji oraz usunięcia rezerwacji danej osoby
+  - error-page - widok podczas wystąpienia błędu 404
+  - home - widok startowy aplikacji
+  - login-page - widok logowania
+  - movie-add - widok dodania nowego filmu do bazy danych, dostępny tylko dla administratora
+  - movie-delete - widok usunięcia filmu z bazy danych, dostępny tylko dla administratora
+  - movie-edit - widok edycji filmu, , dostępny tylko dla administratora
+  - movie-page - widok podglądu danego filmu wraz z dostępnymi terminami seansów
+  - movie-picture - slideshow dla plakatów reklamujących film
+  - movie-tile -  widok danego filmu wraz ze szczegółami
+  - movies-container - galeria filmów
+  - nav-bar - responsywne menu opcjami wyboru zależnymi od rangi użytkownika (admin/klient)
+  - reservation-add - widok dodania nowej rezerwacji
+  - reservation-delete - widok usunięcia rezerwacji
+  - reservation-edit - widok edycji rezerwacji
+  - reservation-tile - "wizytówka" rezerwacji wraz z ilością miejsc oraz odnośnikiem do filmu, na który jest złożona
+  - signup-page - widok rejestracji
+  - term-add - widok dodawnia noewgo terminu seansu dla danego filmu
+  - term-delete - widok i obsługa usunięcia terminu seansu
+  - term-edit - widok edycji terminu seansu
+  - user-page - widok strony użytkownika, wyświetla jego rolę, imię i nazwisko oraz jego rezerwacje
+ 
 ## Backend
