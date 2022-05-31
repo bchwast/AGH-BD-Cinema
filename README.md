@@ -267,3 +267,37 @@ Baza danych zawiera 3 kolekcje:
 
       module.exports = mongoose.model('Users', UserSchema);
 
+### API
+
+  - auth.js
+  
+    - POST: /register - rejestracja nowego użytkownika
+    - POST: /login - logowanie użytkownika
+    - POST: /logout - wylogowanie użytkownika
+    
+  -  movies.js
+  
+    - GET: / - wyświetlanie dostępnych filmów
+    - POST: / - weryfikacja danych logowania
+    - GET: /:id - wyszukiwanie filmu 
+    - DELETE: /:id - usuwanie filmu
+    - PUT: /:id - aktualizacja filmu
+    - GET: /:id/terms - wyświetlanie terminów seansów danego filmu
+    - POST: /:id/addterm - dodawanie nowego terminu seansu
+    
+  -  terms.js
+  
+    - GET: / - wyświetla terminy seansu danego filmu
+    - POST: / - dodawanie nowego terminu seansu
+    - GET: /:id - wyszukiwanie danego terminu seansu
+    - PUT: /:id - aktualizacja terminu seansu
+    - DELETE: /:id - usunięcie terminu seansu
+   
+  -  users.js
+  
+    - GET: /:id/reservations - wyświetla rezerwacje danego użytkownika
+    - POST: /:id/reservations - dodawanie nowej rezerwacji
+    - PUT: /:user_id/reservations/:reservation_id - aktualizacja danych o określonym terminie seansu
+    - DELETE: /:user_id/reservations/:reservation_id - usuwanie rezerwacji
+    - GET: /:id - 
+    - GET: / - 
