@@ -27,7 +27,6 @@ router.post('/register', async (req, res) => {
 
     try {
         const savedUser = await user.save();
-        // res.header("Access-Control-Allow-Origin", "*");
         res.status(201).json({user: user._id});
     } catch(err) {
         res.status(400).json({error_message: err});
@@ -54,7 +53,6 @@ router.post('/login', async (req, res) => {
         expiresIn: '5h'
     });
 
-    // res.header("Access-Control-Allow-Origin", "*");
     res.header('token', token);
     res.status(201).json({
         _id: user._id,

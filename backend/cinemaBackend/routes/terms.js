@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
     try {
         const terms = await Term.find();
         res.status(200).json(terms);
-        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -28,7 +27,6 @@ router.post('/', loginVerify, async (req, res) => {
         }
         const savedTerm = await term.save();
         res.status(201).json(savedTerm);
-        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -42,7 +40,6 @@ router.get('/:id', async (req, res) => {
             return;
         }
         res.status(200).json(term);
-        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -60,7 +57,6 @@ router.put('/:id', loginVerify, async (req, res) => {
             context: 'query'
         });
         res.status(200).send('Updated succesfully')
-        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
@@ -74,7 +70,6 @@ router.delete('/:id', loginVerify, async (req, res) => {
         }
         await Term.findByIdAndDelete(req.params.id);
         res.status(200).send('Deleted succesfully');
-        // res.header("Access-Control-Allow-Origin", "*");
     } catch(err) {
         res.status(400).json({error_message: err});
     }
