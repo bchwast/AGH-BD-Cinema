@@ -9,14 +9,24 @@ Celem naszej aplikacji jest obsługa usług związanych z zarządzaniem kinem. D
 ## Instrukcja uruchomienia aplikacji
 
 ### Uruchomienie aplikacji backendowej
+
+
+```
 cd AGH-BD-Cinema/backend/cinemaBackend
 npm install
 npm start
+```
+
 
 ### Uruchomienie aplikacji frontendowej
+
+
+```
 cd AGH-BD-Cinema/frontend/cinema
 npm install
 npm start
+```
+
 
 ## Technologie:
 - **React**
