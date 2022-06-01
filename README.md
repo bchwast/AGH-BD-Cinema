@@ -6,6 +6,18 @@ Bartłomiej Chwast, Piotr Kowalczyk, Magdalena Królikowska
 
 Celem naszej aplikacji jest obsługa usług związanych z zarządzaniem kinem. Do głównych funkcjonalności należą: umożliwienie użytkownikom stworzenie kont i na ich podstawie rezerwacji miejsc na określone seanse. Admin może przeglądać użytkowników oraz dodawać, edytować i usuwać filmy, terminy i rezerwacje.
 
+## Instrukcja uruchomienia aplikacji
+
+### Uruchomienie aplikacji backendowej
+cd AGH-BD-Cinema/backend/cinemaBackend
+npm install
+npm start
+
+### Uruchomienie aplikacji frontendowej
+cd AGH-BD-Cinema/frontend/cinema
+npm install
+npm start
+
 ## Technologie:
 - **React**
 - **ExpressJS**
@@ -278,7 +290,7 @@ Baza danych zawiera 3 kolekcje:
   -  movies.js
   
     - GET: / - wyświetlanie dostępnych filmów
-    - POST: / - weryfikacja danych logowania
+    - POST: / - dodawanie nowego filmu
     - GET: /:id - wyszukiwanie filmu 
     - DELETE: /:id - usuwanie filmu
     - PUT: /:id - aktualizacja filmu
@@ -287,7 +299,7 @@ Baza danych zawiera 3 kolekcje:
     
   -  terms.js
   
-    - GET: / - wyświetla terminy seansu danego filmu
+    - GET: / - wyświetla wszystkie terminy dla wszystkich filmów 
     - POST: / - dodawanie nowego terminu seansu
     - GET: /:id - wyszukiwanie danego terminu seansu
     - PUT: /:id - aktualizacja terminu seansu
@@ -297,7 +309,7 @@ Baza danych zawiera 3 kolekcje:
   
     - GET: /:id/reservations - wyświetla rezerwacje danego użytkownika
     - POST: /:id/reservations - dodawanie nowej rezerwacji
-    - PUT: /:user_id/reservations/:reservation_id - aktualizacja danych o określonym terminie seansu
+    - PUT: /:user_id/reservations/:reservation_id - aktualizacja ilości miejsc w rezerwacji
     - DELETE: /:user_id/reservations/:reservation_id - usuwanie rezerwacji
-    - GET: /:id - 
-    - GET: / - 
+    - GET: /:id - wyszukiwanie użytkownika po id
+    - GET: / - wyszukiwanie wszystkich użytkowników
