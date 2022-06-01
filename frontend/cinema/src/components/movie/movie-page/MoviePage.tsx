@@ -8,6 +8,7 @@ import {TermDelete} from "../../term/term-delete/TermDelete";
 import {ReservationAdd} from "../../reservation/reservation-add/ReservationAdd";
 import MovieDelete from "../movie-delete/MovieDelete";
 import {MoviePicture} from "../movie-picture/MoviePicture";
+import './MoviePage.scss';
 
 export const MoviePage = () => {
     // @ts-ignore

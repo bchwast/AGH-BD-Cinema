@@ -2,6 +2,7 @@ import {Movie} from "../../../interfaces/Movie";
 import {useState} from "react";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import './MoviePicture.scss';
 
 type Props = {
     movie: Movie;
@@ -27,12 +28,12 @@ export const MoviePicture = ({movie}: Props) => {
     }
 
     return (
-        <>
+        <div className="wrapper">
             <button onClick={prevPicture}><FontAwesomeIcon icon={faChevronLeft}/></button>
             <div>
-                <img src={movie.pictures[shown]} alt='pic'/>
+                <img className="moviePic" src={movie.pictures[shown]} alt='pic'/>
             </div>
             <button onClick={nextPicture}><FontAwesomeIcon icon={faChevronRight}/></button>
-        </>
+        </div>
     )
 }
