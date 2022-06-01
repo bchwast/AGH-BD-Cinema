@@ -299,27 +299,27 @@ Baza danych zawiera 3 kolekcje:
     
   -  movies.js
   
-    - GET: / - wyświetlanie dostępnych filmów
-    - POST: / - dodawanie nowego filmu
-    - GET: /:id - wyszukiwanie filmu 
-    - DELETE: /:id - usuwanie filmu
-    - PUT: /:id - aktualizacja filmu
-    - GET: /:id/terms - wyświetlanie terminów seansów danego filmu
-    - POST: /:id/addterm - dodawanie nowego terminu seansu
+      - GET: / - wyświetlanie dostępnych filmów
+      - POST: / - dodawanie nowego filmu
+      - GET: /:id - wyszukiwanie filmu 
+      - DELETE: /:id - usuwanie filmu
+      - PUT: /:id - aktualizacja filmu
+      - GET: /:id/terms - wyświetlanie terminów seansów danego filmu
+      - POST: /:id/addterm - dodawanie nowego terminu seansu
     
   -  terms.js
   
-    - GET: / - wyświetla wszystkie terminy dla wszystkich filmów 
-    - POST: / - dodawanie nowego terminu seansu
-    - GET: /:id - wyszukiwanie danego terminu seansu
-    - PUT: /:id - aktualizacja terminu seansu
-    - DELETE: /:id - usunięcie terminu seansu
+      - GET: / - wyświetla wszystkie terminy dla wszystkich filmów 
+      - POST: / - dodawanie nowego terminu seansu
+      - GET: /:id - wyszukiwanie danego terminu seansu
+      - PUT: /:id - aktualizacja terminu seansu
+      - DELETE: /:id - usunięcie terminu seansu
    
   -  users.js
   
-    - GET: /:id/reservations - wyświetla rezerwacje danego użytkownika
-    - POST: /:id/reservations - dodawanie nowej rezerwacji
-    - PUT: /:user_id/reservations/:reservation_id - aktualizacja ilości miejsc w rezerwacji
-    - DELETE: /:user_id/reservations/:reservation_id - usuwanie rezerwacji
-    - GET: /:id - wyszukiwanie użytkownika po id
-    - GET: / - wyszukiwanie wszystkich użytkowników
+      - GET: /:id/reservations - wyświetla rezerwacje danego użytkownika
+      - POST: /:id/reservations - dodawanie nowej rezerwacji
+      - PUT: /:user_id/reservations/:reservation_id - aktualizacja ilości miejsc w rezerwacji
+      - DELETE: /:user_id/reservations/:reservation_id - usuwanie rezerwacji
+      - GET: /:id - wyszukiwanie użytkownika po id
+      - GET: / - wyszukiwanie wszystkich użytkowników
