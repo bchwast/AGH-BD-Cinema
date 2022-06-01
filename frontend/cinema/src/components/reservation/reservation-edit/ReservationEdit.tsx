@@ -15,7 +15,7 @@ type Props = {
 
 export const ReservationEdit = ({reservation, update}: Props) => {
     // @ts-ignore
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
 
     const [term, setTerm] = useState<Term>();
     const [loaded, setLoaded] = useState(false);
@@ -97,6 +97,9 @@ export const ReservationEdit = ({reservation, update}: Props) => {
                 } else if (err.response?.status === 400) {
                     // @ts-ignore
                     setErrMsg(err.response.data);
+                } else if (err.response?.status === 418) {
+                    console.log('Token has expired');
+                    setAuth({});
                 }
             } else {
                 setErrMsg('Add reservation error');

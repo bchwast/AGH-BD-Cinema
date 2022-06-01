@@ -2,13 +2,13 @@ import useAuth from "../../hooks/useAuth";
 import {ReservationTile} from "../reservation/reservation-tile/ReservationTile";
 import {Reservation} from "../../interfaces/Reservation";
 import {useEffect, useState} from "react";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {ReservationDelete} from "../reservation/reservation-delete/ReservationDelete";
 import {ReservationEdit} from "../reservation/reservation-edit/ReservationEdit";
 
 export const UserPage = () => {
     // @ts-ignore
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
     const [reservations, setReseravtions] = useState<Reservation[]>([]);
     const [loaded, setLoaded] = useState(false);
 
@@ -33,6 +33,13 @@ export const UserPage = () => {
             setLoaded(true);
         } catch (error) {
             console.log(error);
+            if (axios.isAxiosError(error)) {
+                const err = error as AxiosError;
+                if (err.response?.status === 418) {
+                    console.log('Token has expired');
+                    setAuth({});
+                }
+            }
         }
     }
 

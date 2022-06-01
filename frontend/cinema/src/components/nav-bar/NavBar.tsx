@@ -14,26 +14,29 @@ export const NavBar = () => {
         setAuth({});
     }
 
+
     return (
+        
         <Navbar bg="light" expand="lg">
             <Container>
                 <Navbar.Brand>
-                    <Link to="/">
+                    <Navbar.Brand  href="/">
                         Cinema
-                    </Link>
+                    </Navbar.Brand>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Link to="/">Home </Link>
-                        <Link to="/movies">Movies </Link>
-                        {auth?.token ? <Link to="/user">{auth?.firstname}</Link> : <Link to="/login">Login </Link>}
-                        {auth?.token ? <button onClick={logout}>Logout</button> : <Link to="/signup">Sign up </Link>}
-                        {auth?.admin ? <Link to="/admin">Admin</Link> : null}
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                <Nav className="me-auto">
+                        <Nav.Link href="/">Home </Nav.Link>
+                        <Nav.Link href="/movies">Movies </Nav.Link>
+                        {auth?.token ? <Nav.Link href="/user">{auth?.firstname}</Nav.Link> : <Nav.Link href="/login">Login </Nav.Link>}
+                        {auth?.token ? <button onClick={logout}>Logout</button> : <Nav.Link href="/signup">Sign up </Nav.Link>}
+                        {auth?.admin ? <Nav.Link href="/admin">Admin</Nav.Link> : null}
+            
+                </Nav>
+            </Navbar.Collapse>
+        </Container>
+    </Navbar>
     );
 }
 

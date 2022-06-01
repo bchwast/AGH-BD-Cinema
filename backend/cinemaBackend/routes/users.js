@@ -58,11 +58,11 @@ router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, re
     session.startTransaction();
     try {
         const user = await User.findById(req.params.user_id);
-        if (user._id != req.params.id && !user.admin) {
+        if (user._id != req.params.user_id && !user.admin) {
             return res.status(401).send('Access denied');
         }
         const term = await Term.findById(req.body.term);
-        const reservation = user.reservations.id(req.params.reservation_id).exec();
+        const reservation = user.reservations.id(req.params.reservation_id);
         if (term.freePlaces < -1 * reservation.numberOfPlaces + req.body.numberOfPlaces) {
             return res.status(400).send('Not enough places');
         }
@@ -72,6 +72,7 @@ router.put('/:user_id/reservations/:reservation_id', loginVerify, async (req, re
         term.save();
         res.status(200).send('Updated reservation');
     } catch(err) {
+        console.log(err);
         session.abortTransaction();
         session.endSession();
         res.status(400).json({error_message: err});

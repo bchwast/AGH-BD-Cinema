@@ -24,13 +24,13 @@ const corsOptions ={
 
 app.use(cors(corsOptions))
 
-// mongoose.connect(process.env.DB_URL, {
-//     useNewUrlParser: true,
-//     dbName: 'cinemaDB'
-// }, () => console.log('connected'));
-mongoose.connect('mongodb://localhost:27017/', {
-    dbName: 'cinemaDB',
-    useNewUrlParser: true
+mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    dbName: 'cinemaDB'
 }, () => console.log('connected'));
+// mongoose.connect('mongodb://localhost:27017/', {
+//     dbName: 'cinemaDB',
+//     useNewUrlParser: true
+// }, () => console.log('connected'));
 
 app.listen(8080);
