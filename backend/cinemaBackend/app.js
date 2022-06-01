@@ -2,6 +2,14 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 
+const cors=require('cors');
+const corsOptions ={
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'PUT' , 'POST', 'DELETE']
+}
+
+app.use(cors(corsOptions))
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -15,14 +23,6 @@ app.use('/terms', termsRoute);
 app.use('/auth', authRoute);
 app.use('/users', usersRoute);
 
-const cors=require('cors');
-const corsOptions ={
-    origin:'*',
-    credentials:true,
-    optionSuccessStatus:200,
-}
-
-app.use(cors(corsOptions))
 
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
